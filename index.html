@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+  <!-- Travis Scott 3-29-24 -->
+  <!-- Adapted from https://javascript30.com/ JavaScript Drum Kit -->
+  <!-- Changed javascript logText function so that upon click, propogation would start for all nested divs.
+  The function would then grab each div using e.currentTarget and pass it into
+the variable el.  The id would then be captured using el.id and this value would
+be passed into id.  The id's would then be checked using if statements, such that when 
+an id was identified the class for that div id would be changed using classList.remove and classList.add
+and the colors of each of the divs would be changed.  There is also a setTimout function so there is a 1 second
+time period before the change in color occurrs. -->
+  <!--CSS added new classes with new background colors in order to use classList.add or classList.remove-->
+</head>
+<body class="bod">
+
+  <div class="one" id="one">
+    <div class="two" id="two">
+      <div class="three" id="three">
+        <div class="four" id="four">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+  .four {
+    background: blue;
+  }
+
+  .five {
+    background: purple;
+  }
+  .six {
+    background: green;
+  }
+  .seven {
+    background: black;
+  }
+  .eight {
+    background: white;
+  }
+
+
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e) {
+    const el = e.currentTarget
+    console.log(el)
+    const id = el.id
+    console.log(id);
+    setTimeout(function(){
+    if(id === "four"){
+      el.classList.toggle("four")
+      el.classList.toggle("five")
+
+    }
+    if(id === "two"){
+      el.classList.remove("two")
+      el.classList.add("six")
+    }
+    
+    if(id === "three"){
+      el.classList.remove("three")
+      el.classList.add("seven")
+    }
+    if(id === "one"){
+    el.classList.remove("one")
+    el.classList.add("eight")
+    }
+    }, 1000)
+    
+    
+
+    
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false,
+    once: false
+  }));
+
+  button.addEventListener('click', () => {
+    console.log('Click!!!');
+  }, {
+    once: true
+  });
+
+</script>
+</body>
+</html>
